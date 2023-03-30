@@ -2,16 +2,35 @@ import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import { nanoid } from 'nanoid';
 import { InputName, Button, Label, Input } from './ContactForm.styled';
+import { useSelector, useDispatch } from 'react-redux';
+import { addContacts } from '../../redux/taskSlice';
 
 const initialValues = {
   name: '',
   number: '',
 };
-export const ContactForm = ({ onAddNewContact }) => {
+export const ContactForm = () => {
+  const dispatch = useDispatch();
+
+  const contact = useSelector(state => state.contacts);
+
   const hendleSubmit = (values, { resetForm }) => {
-    onAddNewContact({ ...values, id: nanoid() });
+    let nameRepeat = false;
+    contact.forEach(name => {
+      if (name.name.toLowerCase() === values.name.toLowerCase()) {
+        nameRepeat = true;
+        resetForm();
+        return alert(`${values.name} is already in contacts`);
+      }
+    });
+    if (nameRepeat) {
+      return;
+    }
+
+    dispatch(addContacts({ ...values, id: nanoid() }));
     resetForm();
   };
+
   return (
     <Formik initialValues={initialValues} onSubmit={hendleSubmit}>
       <Form>
@@ -45,3 +64,6 @@ export const ContactForm = ({ onAddNewContact }) => {
 ContactForm.propTypes = {
   onAddNewContact: PropTypes.func.isRequired,
 };
+
+//   const index = state.findIndex(contact => contact.id === action.payload);
+//   state.splice(index, 1);
