@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { ContactListItem } from 'components/contactListItem/ContactListItem';
 import { List, ListItem } from './ContactList.styled';
 import { useSelector } from 'react-redux';
