@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import { nanoid } from 'nanoid';
 import { InputName, Button, Label, Input } from './ContactForm.styled';
@@ -60,10 +59,3 @@ export const ContactForm = () => {
     </Formik>
   );
 };
-
-ContactForm.propTypes = {
-  onAddNewContact: PropTypes.func.isRequired,
-};
-
-//   const index = state.findIndex(contact => contact.id === action.payload);
-//   state.splice(index, 1);

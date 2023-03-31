@@ -10,7 +10,6 @@ export const ContactList = () => {
 
   const filteredContacts = () => {
     const normalizeFilter = filter.toLowerCase();
-
     return contact.filter(({ name }) =>
       name.toLowerCase().includes(normalizeFilter)
     );
@@ -19,21 +18,19 @@ export const ContactList = () => {
   const contactForRender = filteredContacts();
 
   return (
-    <div>
+    <>
       <List>
-        {contactForRender.map(({ id, name, number }) => (
-          <ListItem key={id}>
-            <ContactListItem id={id} name={name} number={number} />
-          </ListItem>
-        ))}
+        {contactForRender.length !== 0 ? (
+          contactForRender.map(({ id, name, number }) => (
+            <ListItem key={id}>
+              <ContactListItem id={id} name={name} number={number} />
+            </ListItem>
+          ))
+        ) : (
+          <div style={{ fontSize: 22, color: 'grey' }}>No contacts</div>
+        )}
+        {}
       </List>
-    </div>
+    </>
   );
 };
-
-// ContactList.propTypes = {
-//   contacts: PropTypes.arrayOf(PropTypes.shape(PropTypes.string.isRequired))
-//     .isRequired,
-//   namefilter: PropTypes.string.isRequired,
-//   onDeleteContact: PropTypes.func.isRequired,
-// };
